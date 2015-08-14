@@ -1,0 +1,18 @@
+include::_settings.adoc[]
+:presenter_name: Your Name
+:twitter: twitterhandle
+:email: your.name@codecentric.de
+:copyright: CC BY-SA 4.0
+:presentation_date: 2015-04-10
+:presentation_version: v1.0.0
+
+= Use *Asciidoc* to generate reveal.js backed *slides* and *pdf*
+Hendrik Saly
+//{presenter_name}
+//{email}
+//{twitter}
+
+include::slides/demo1.adoc[]
+include::slides/demo2.adoc[]
+include::slides/demo3.adoc[]
+include::slides/qa.adoc[]

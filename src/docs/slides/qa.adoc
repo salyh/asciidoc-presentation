@@ -1,0 +1,4 @@
+== So Long, and Thanks For All the Fish
+
+image::cc/logo_cc.png[]
+image::fish.jpg[]

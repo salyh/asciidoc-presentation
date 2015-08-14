@@ -1,0 +1,10 @@
+== Speaker notes.
+
+This slide contains speaker notes. Press the s key on your keyboard to show them.
+
+[NOTE.speaker]
+--
+This note will be shown on the speakerdeck. +
+Notes are only shown by pressing s. +
+To force a <br/> use a space and plus char at the end of the line.
+--

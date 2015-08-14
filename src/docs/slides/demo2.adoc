@@ -1,0 +1,8 @@
+== Source code
+
+[source, java]
+----
+public static xxx1(); //doc
+public static xxx2(); //<1>
+----
+//<1> some explanations
