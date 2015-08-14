@@ -4,7 +4,7 @@
 :status:
 :arrows:
 :source-highlighter: highlightjs
-:revealjs_theme: night
+:revealjs_theme: cc_black
 :revealjs_progress: true
 :revealjs_slidenumber: true
 :pdf-page-size: A4
