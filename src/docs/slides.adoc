@@ -1,16 +1,13 @@
 include::_settings.adoc[]
-:presenter_name: Your Name
-:twitter: twitterhandle
-:email: your.name@codecentric.de
-:copyright: CC BY-SA 4.0
-:presentation_date: 2015-04-10
-:presentation_version: v1.0.0
+:presenter_name: Hendrik Saly
+:presenter_company: codecentric AG
+:presenter_twitter: hendrikdev22
+:presenter_email: hendrik.saly@codecentric.de
+//CC LICENSE
+:copyright: by-sa
 
-= Use *Asciidoc* to generate reveal.js backed *slides* and *pdf*
-Hendrik Saly
-//{presenter_name}
-//{email}
-//{twitter}
+= *Johnzon* -  Apache's Upcoming JSON Library
+{presenter_name}, {presenter_company}
 
 include::slides/demo1.adoc[]
 include::slides/demo2.adoc[]

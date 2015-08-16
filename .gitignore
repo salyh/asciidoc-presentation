@@ -4,4 +4,5 @@
 .reveal.js/
 target/
 slides_*.tar.gz
+.decktape
 

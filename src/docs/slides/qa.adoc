@@ -1,4 +1,11 @@
-== So Long, and Thanks For All the Fish
+== Thank you!
+
+* {presenter_email}
+* Follow me on Twitter: https://twitter.com/{presenter_twitter}[@{presenter_twitter}]
+
+image::https://licensebuttons.net/l/{copyright}/4.0/88x31.png[]
+
+[.license]
+This work is licensed under a http://creativecommons.org/licenses/{copyright}/4.0/[Creative Commons Attribution 4.0 International License]
 
 image::cc/logo_cc.png[]
-image::fish.jpg[]

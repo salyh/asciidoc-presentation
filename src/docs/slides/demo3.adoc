@@ -1,9 +1,27 @@
-[data-background="blue"]
+[data-background="images/cc/codecentric-green-background-16x9.png"]
 == Slide Three
 
-* Is very blue
-** Is very blue
-** Is very blue
-* Is very blue
+* one
+** two
+** two
+*** three
+*** three
 
+A link to https://github.com/
+
+== Slide Three
+
+. Step 1
+. Step 2
+.. Step 2a
+.. Step 2b
+. Step 3
+
+== Steps
+
+[%step]
+* this
+* is
+* revealed
+* gradually
 

@@ -8,15 +8,10 @@
 :revealjs_progress: true
 :revealjs_slidenumber: true
 :pdf-page-size: A4
-:listing-caption: Listing
 :revealjs_center: false 
 :revealjs_history: true
-//:revealjs_customtheme: styles/saly.css
 :icons: font
 :imagesdir: images
-:title-slide-background-image: cc/cc_title_background_16_9.png
-//:revealjs_parallaxBackgroundImage: images/devoxx-background.png
-//:color-accent: #1aacc7
-//:topic-background-color: {color-accent}
+:title-slide-background-image: cc/codecentric-title-background-16x9.png
 :idprefix:
 :idseparator: -

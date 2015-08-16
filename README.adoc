@@ -5,6 +5,7 @@ Generate reveal.js slides and PDF from asciidoc in codecentric style on macos
 ** http://asciidoctor.org/docs/install-asciidoctor-macosx/
 * Install asciidoctor-pdf
 ** https://github.com/asciidoctor/asciidoctor-pdf
+* Install Panton fonts (available in Centerdevice)
 
 == Setup a new presentation/project
 * git clone https://github.com/salyh/cc-asciidoc.git <TITLE OF YOUR PRESENTATION/PROJEKT>
@@ -14,27 +15,22 @@ Generate reveal.js slides and PDF from asciidoc in codecentric style on macos
 == Create your asciidoc documents
 * Edit src/docs/_settings.adoc (Optional)
 * Edit src/docs/slides.adoc
-** Change the title of your presentation/projekt
-Maxime Gréau <https://twitter.com/mgreau[@mgreau]>; Dan Allen <https://twitter.com/mojavelinux[@mojavelinux]>
-v1.0.0, 2015-04-10
-
-** Change presenter_name:
-** Change :twitter:
-** Change :email:
-** Change :copyright: if default does not match
-** Change :copyright: if default does not match
-** And finally, of course, add new content/slides
-** Put images into images/ folder
+* Add new content/slides
+* Put images into images/ folder
+** Images with transparency are shown on white background
 
 == Generate reveal.js slides and PDF
 * ./pdf.sh
+* find your slides and PDF's in target/
 
 == Generate reveal.js slides only
 * ./build.sh
+* find your slides in target/
 
 == Package
 To package your reveal.js presentation
 * ./package.sh 
+* A file with name **slides_revealjs.tar.gz** will be created
 
 == When you're showing your reveal.js presentation you can use these keyboard shortcuts
 * Up, Down, Left, Right: Navigation
