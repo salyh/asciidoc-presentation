@@ -4,12 +4,115 @@ include::_settings.adoc[]
 :presenter_twitter: hendrikdev22
 :presenter_email: hendrik.saly@codecentric.de
 //CC LICENSE
+//:copyright: by
 :copyright: by-sa
 
-= *Johnzon* -  Apache's Upcoming JSON Library
+= *Johnzon* - Apache's{nbsp}Upcoming JSON Library
 {presenter_name}, {presenter_company}
 
-include::slides/demo1.adoc[]
-include::slides/demo2.adoc[]
-include::slides/demo3.adoc[]
+
+== What is Johnzon?
+
+sdsdsdsd
+
+image::johnzon.png[width=250, float=right, margin=20]
+
+Lightweight JSON library written in Java with no ext. dependecies +
+
+Implementation of JSR-353 (API for JSON Processing/JSON-P) +
+
+//but not yet certified due to TCK are not accessible by Apache yet +
+
+Contains also modules which are not defined in JSR-353 +
+-> Object mapper  +
+-> JAX-RS provider  +
+-> Websocket (JSR-356) integration  +
+-> JSON DSL for mutating documents in a simple and comfortable manner +
+
+
+
+[NOTE.speaker]
+--
+JEE, Java SE
+--
+
+== What is Johnzon? (cont.)
+* Object mapper will be JSR-367 (API for JSON Binding/JSON-B) compliant once the spec is finalized
+* The pasrer will also be JSR-374 (Update of JSR-353) compliant once the spec is finalized
+** this is already in progress, pls. refer to https://github.com/apache/incubator-johnzon/tree/jsr374_367
+
+* Currently incubating within the Apache Incubator
+** and looking for new community members
+** low entrance barrier
+
+== What is the Apache Incubator
+The Incubator project is the entry path into The Apache Software Foundation (ASF) for projects and codebases 
+wishing to become part of the Foundation's efforts. 
+
+The Apache Incubator has two primary goals:
+
+* Ensure all donations are in accordance with the ASF legal standards
+* Develop new communities that adhere to our guiding principles
+
+== What is a JSR
+
+* JSR -> Java Specification Request
+* A formal standardization process
+* Community involved
+* Controlled by Oracle (originally by Sun)
+[data-background="images/fish.jpg"]
+== What is a TCK
+
+* TCK -> Technology Compatibility Kit
+* Test suite which must be passed to get certified
+
+== JSR-353 Basics
+
+* Can be used standalone or within a JEE container
+* Provides a streaming API as well as an "Tree Model" API
+
+[source, java]
+----
+JsonParser parser = Json.createParser(new FileReader("file.json"));
+while(parser.hasNext() {
+    Event event = parser.next();
+    if(event == Event.VALUE_STRING) {
+    	System.out.println(parser.getString());
+    }
+}
+----
+
+[data-background="images/cc/codecentric-green-background-16x9.png"]
+== Intermission
+
+intermission Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
+Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
+
+
+== JSR-353 Basics (cont.)
+
+* Can be used standalone or within a JEE container
+* Provides a streaming API as well as an "Tree Model" API
+
+[source, java]
+----
+JsonParser parser = Json.createParser(new FileReader("file.json"));
+while(parser.hasNext() {
+    Event event = parser.next();
+    if(event == Event.VALUE_STRING) {
+    	System.out.println(parser.getString());
+    }
+}
+----
+
+
+== Code is on github
+
+
+
+
+
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 include::slides/qa.adoc[]
