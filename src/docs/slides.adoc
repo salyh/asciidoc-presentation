@@ -2,7 +2,7 @@ include::_settings.adoc[]
 :presenter_name: Hendrik Saly
 :presenter_company: codecentric AG
 :presenter_twitter: hendrikdev22
-:presenter_email: hendrik.saly@codecentric.de
+:presenter_email: salyh@apache.org
 //CC LICENSE
 //:copyright: by
 :copyright: by-sa
@@ -10,25 +10,25 @@ include::_settings.adoc[]
 = *Johnzon* - Apache's{nbsp}Upcoming JSON Library
 {presenter_name}, {presenter_company}
 
-
+//Johnzon is the Apache implementation for JSR 353 (JSONP) and currently under incubation.
+//
+//But wait, Johnzon is more than that. It's also JSON Java Mapper with full data binding and a JAX-RS provider.
+//
+//In this presentation, Hendrik Saly will discuss the current state of the library,
+//the features and the outlook. We'll also look on performance aspects and benchmarks against other JSON libraries.
+//
+//The outlook will focus especially on JSR 367 (JSON Binding) and JSR 374 (Update of JSR 353) because both specs 
+//will be implemented into Johnzon and Hendrik is a member of both expert groups and can give some insights on that.
+//
+//-------------------------------------------------------------------------------------
 == What is Johnzon?
 
-sdsdsdsd
+* Lightweight JSON library written in Java
+* No ext. dependencies
+* Implementation of JSR-353
+* Apache 2 License
 
-image::johnzon.png[width=250, float=right, margin=20]
-
-Lightweight JSON library written in Java with no ext. dependecies +
-
-Implementation of JSR-353 (API for JSON Processing/JSON-P) +
-
-//but not yet certified due to TCK are not accessible by Apache yet +
-
-Contains also modules which are not defined in JSR-353 +
--> Object mapper  +
--> JAX-RS provider  +
--> Websocket (JSR-356) integration  +
--> JSON DSL for mutating documents in a simple and comfortable manner +
-
+image::johnzon_logo.png[width=250,align=right]
 
 
 [NOTE.speaker]
@@ -36,15 +36,37 @@ Contains also modules which are not defined in JSR-353 +
 JEE, Java SE
 --
 
+//-------------------------------------------------------------------------------------
 == What is Johnzon? (cont.)
-* Object mapper will be JSR-367 (API for JSON Binding/JSON-B) compliant once the spec is finalized
-* The pasrer will also be JSR-374 (Update of JSR-353) compliant once the spec is finalized
-** this is already in progress, pls. refer to https://github.com/apache/incubator-johnzon/tree/jsr374_367
 
+//but not yet certified due to TCK are not accessible by Apache yet +
+
+* Contains also modules which are not defined in JSR-353
+** Object mapper
+** JAX-RS provider
+** Websocket (JSR-356) integration (beta)
+** JSON DSL for mutating documents comfortably (beta)
+
+
+//-------------------------------------------------------------------------------------
+== Roadmap
+
+* Implement JSR-367 (API for JSON Binding/JSON-B)
+* Implement JSR-374 (Update of JSR-353)
+* Performance enhancements
+* JEE Certification
+
+
+//-------------------------------------------------------------------------------------
+== Status of the project
+
+* Stable and production ready
 * Currently incubating within the Apache Incubator
 ** and looking for new community members
 ** low entrance barrier
+* Plan is to graduate soon
 
+//-------------------------------------------------------------------------------------
 == What is the Apache Incubator
 The Incubator project is the entry path into The Apache Software Foundation (ASF) for projects and codebases 
 wishing to become part of the Foundation's efforts. 
@@ -54,22 +76,29 @@ The Apache Incubator has two primary goals:
 * Ensure all donations are in accordance with the ASF legal standards
 * Develop new communities that adhere to our guiding principles
 
+//-------------------------------------------------------------------------------------
+== Current users of Johnzon
+
+* Apache TomEE 2
+* Apache Tamaya
+* Apache Decanter
+
+//-------------------------------------------------------------------------------------
 == What is a JSR
 
 * JSR -> Java Specification Request
 * A formal standardization process
 * Community involved
-* Controlled by Oracle (originally by Sun)
-[data-background="images/fish.jpg"]
-== What is a TCK
+* Controlled by Oracle within the Java community process (JCP)
 
-* TCK -> Technology Compatibility Kit
-* Test suite which must be passed to get certified
-
+//-------------------------------------------------------------------------------------
 == JSR-353 Basics
 
 * Can be used standalone or within a JEE container
-* Provides a streaming API as well as an "Tree Model" API
+* Provides a streaming API as well as a "Tree Model" API
+
+//-------------------------------------------------------------------------------------
+== Streaming API
 
 [source, java]
 ----
@@ -81,37 +110,91 @@ while(parser.hasNext() {
     }
 }
 ----
-
-[data-background="images/cc/codecentric-green-background-16x9.png"]
-== Intermission
-
-intermission Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
-Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
-
-
-== JSR-353 Basics (cont.)
-
-* Can be used standalone or within a JEE container
-* Provides a streaming API as well as an "Tree Model" API
+//-------------------------------------------------------------------------------------
+== "Tree Model" API
 
 [source, java]
 ----
-JsonParser parser = Json.createParser(new FileReader("file.json"));
-while(parser.hasNext() {
-    Event event = parser.next();
-    if(event == Event.VALUE_STRING) {
-    	System.out.println(parser.getString());
-    }
-}
+JsonReader reader = Json.createReader(new StringReader("[]"));
+JsonArray array = reader.readArray();
+System.out.println(array.isEmpty());
+jsonReader.close();
+----
+//-------------------------------------------------------------------------------------
+== Generator API
+
+[source, java]
+----
+JsonGenerator generator = Json.createGenerator(writer);
+generator
+     .writeStartObject()
+         .write("firstName", "John")
+         .write("lastName", "Smith")
+         .write("age", 25)
+         .writeStartObject("address")
+             .write("streetAddress", "21 2nd Street")
+             .write("city", "New York")
+             .write("state", "NY")
+             .write("postalCode", "10021")
+         .writeEnd()
+     .writeEnd();
+ generator.close();
+----
+//-------------------------------------------------------------------------------------
+== Configuration
+
+[source, java]
+----
+final JsonReader reader = Json.createReaderFactory(new HashMap<String, Object>() {
+            put("org.apache.johnzon.supports-comments", true);
+        }).createReader(...);
+JsonParser generator = Json.createGeneratorFactory();
+JsonGenerator generator = Json.createGeneratorFactory();
 ----
 
+//[data-background="images/cc/codecentric-green-background-16x9.png"]
+//== Intermission
+//
+//intermission Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
+//Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
+//
+//-------------------------------------------------------------------------------------
+== Get it
 
-== Code is on github
+from maven central
+[source, xml]
+----
+<dependency>
+  <groupId>org.apache.johnzon</groupId>
+  <artifactId>johnzon-core</artifactId>
+  <version>0.9.1-incubating</version>
+</dependency>
 
+<dependency>
+  <groupId>org.apache.geronimo.specs</groupId>
+  <artifactId>geronimo-json_1.0_spec</artifactId>
+  <version>1.0-alpha-1</version>
+  <scope>provided</scope> <!-- or compile if your environment doesn't provide it -->
+</dependency>
+----
 
+or download from http://www.eu.apache.org/dist/incubator/johnzon/
 
+//-------------------------------------------------------------------------------------
+== Where to go from here
 
+* http://incubator.apache.org/projects/johnzon.html
+* https://github.com/salyh/jsr353-benchmark
+* https://github.com/apache/incubator-johnzon/tree/jsr374_367
+* https://www.jcp.org/en/jsr/detail?id=353
+* https://www.jcp.org/en/jsr/detail?id=374
+* https://www.jcp.org/en/jsr/detail?id=367
 
+//-------------------------------------------------------------------------------------
+== Github
+
+* https://github.com/apache/incubator-johnzon
+* We accept Pull requests
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------

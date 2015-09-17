@@ -27,8 +27,7 @@ Generate reveal.js slides and PDF from asciidoc in codecentric style on macos
 * ./build.sh
 * find your slides in target/
 
-== Package
-To package your reveal.js presentation
+== To package your reveal.js presentation
 * ./package.sh 
 * A file with name **slides_revealjs.tar.gz** will be created
 
