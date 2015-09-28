@@ -54,13 +54,14 @@ JEE, Java SE
 * Implement JSR-367 (API for JSON Binding/JSON-B)
 * Implement JSR-374 (Update of JSR-353)
 * Performance enhancements
-* JEE Certification
+* JEE crtification
 
 
 //-------------------------------------------------------------------------------------
 == Status of the project
 
 * Stable and production ready
+* Performance for Johnzon core is quite well
 * Currently incubating within the Apache Incubator
 ** and looking for new community members
 ** low entrance barrier
@@ -110,6 +111,7 @@ while(parser.hasNext() {
     }
 }
 ----
+Pull parser
 //-------------------------------------------------------------------------------------
 == "Tree Model" API
 
@@ -158,6 +160,35 @@ JsonGenerator generator = Json.createGeneratorFactory();
 //intermission Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
 //Can be used standalone or within a JEE containerCan be used standalone or within a JEE containerCan be used standalone or within a JEE container
 //
+//-------------------------------------------------------------------------------------
+== The "Mapper"
+
+* JSON<->Java Binding
+* JAX RS
+
+//-------------------------------------------------------------------------------------
+== Benchmarks
+
+* ...
+* ...
+
+//-------------------------------------------------------------------------------------
+== JSR 374 (JSONP 1.1)
+
+JSON RFC (new)
+
+* Top level value
+* java 8
+* ...
+
+//-------------------------------------------------------------------------------------
+== JSR 367 (JSONB 1.0)
+
+* binding
+* java 8
+* ...
+
+
 //-------------------------------------------------------------------------------------
 == Get it
 
