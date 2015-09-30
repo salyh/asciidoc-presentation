@@ -24,6 +24,7 @@ include::_settings.adoc[]
 == What is Johnzon?
 
 * Lightweight JSON library written in Java
+* Core < 90k, 200k for the whole library
 * No ext. dependencies
 * Implementation of JSR-353
 * Apache 2 License
@@ -54,7 +55,7 @@ JEE, Java SE
 * Implement JSR-367 (API for JSON Binding/JSON-B)
 * Implement JSR-374 (Update of JSR-353)
 * Performance enhancements
-* JEE crtification
+* JEE certification (once TCK available)
 
 
 //-------------------------------------------------------------------------------------
@@ -65,7 +66,7 @@ JEE, Java SE
 * Currently incubating within the Apache Incubator
 ** and looking for new community members
 ** low entrance barrier
-* Plan is to graduate soon
+* Plan is to graduate soon (start this year)
 
 //-------------------------------------------------------------------------------------
 == What is the Apache Incubator
@@ -153,6 +154,16 @@ final JsonReader reader = Json.createReaderFactory(new HashMap<String, Object>()
 JsonParser generator = Json.createGeneratorFactory();
 JsonGenerator generator = Json.createGeneratorFactory();
 ----
+//-------------------------------------------------------------------------------------
+== Features not covered by JSR 353
+
+* Comments (single line/multiline)
+* Configurable buffer sizes
+* Different buffer reuse strategies
+** QUEUE - char[] are reused by ConcurrentLinkedQueue (default)
+** BY_INSTANCE - char[] are not reused
+** SINGLETON - char[] are reused by only one global char[]
+** THREAD_LOCAL - char[] are reused by thread (every thread does have its char[] buffer bound to a thread local)
 
 //[data-background="images/cc/codecentric-green-background-16x9.png"]
 //== Intermission
@@ -164,30 +175,126 @@ JsonGenerator generator = Json.createGeneratorFactory();
 == The "Mapper"
 
 * JSON<->Java Binding
-* JAX RS
+* Used by JAX RS provider/Websocket module
+* Supports
+
+** Default de/serializers for BigDecimal, BigInteger, Class, Date, Enum
+** all primitves/wrappers and String
+** custom de/serializers are possible
+** proper handling of collections and generics
+** works with fields, getter/setter or both
+** Inhertitance
+** @JohnzonConverter and @JohnzonIgnore annotations
+** configurable null/empty handling
+** configurable byte[] handling
+
+== JAX-RS Provider
+
+[source, xml]
+----
+<Service id="johnzon" 
+         class-name="org.apache.johnzon.jaxrs.ConfigurableJohnzonProvider">
+    ignores = com.foo.MyType,com.foo.MyOtherType
+    accessMode = method
+    supportHiddenAccess = true
+    doCloseOnStreams = false
+    version = 2
+    skipNull = true
+    skipEmptyArray = true
+</Service>
+----
+
+== Websocket
+
+* https://rmannibucau.wordpress.com/2015/03/24/json-and-websocket-johnzon-to-the-rescue/
+
+== Johnzon DSL
+
+* Upcoming with Johnzon 2
+
+[source, java]
+----
+JsonObject jo = ...;
+MutableJsonStructure ms = MutableJsonStructureFactory.toMutableJsonStructure(jo);
+assertNotSame(ms, ms.copy());
+assertTrue(ms.isLeaf("age"));
+assertFalse(ms.isLeaf("address"));
+assertFalse(ms.isLeafNull("firstName"));
+assertTrue(ms.exists("phoneNumber"));
+assertFalse(ms.exists("eMail"));
+assertEquals(1, ms.get("phoneNumber").get(1).getAncestor().getIndex());
+assertNull(ms.getParent());
+assertEquals("Smith", ms.getLeafAsString("lastName"));
+assertEquals("NY", ms.get("address").getLeafAsString("state"));
+assertEquals(5, ms.getKeys().size());
+assertEquals(5, ms.size());
+assertEquals(4, ms.get("address").size());
+ms.add("additionalAddress", ms.get("address").copy().remove("city").set("state", "CA"));
+ms.set(ms.copy().remove("phoneNumber"));
+assertEquals(5, ms.size());
+JsonObject modJo = (JsonObject) ms.toJsonStructure();
+----
 
 //-------------------------------------------------------------------------------------
-== Benchmarks
+== Benchmark
+* JMH based benchmark suite
+* Not only JSR 353
+* Bytes, Chars (UTF-8/UTF-16)
+* Measurements
+** Parse Only
+** Read to "Tree Model"
+** Generate JSON
+** Serialize
+** Deserialize
 
-* ...
-* ...
+[NOTE.speaker]
+--
+Not included within Apache Scope because of JMH licensing issue
+--
 
 //-------------------------------------------------------------------------------------
-== JSR 374 (JSONP 1.1)
+== Benchmark (cont.)
 
-JSON RFC (new)
-
-* Top level value
-* java 8
-* ...
+image::parseOnly1kChars.jpg[]
 
 //-------------------------------------------------------------------------------------
-== JSR 367 (JSONB 1.0)
+== Benchmark (cont.)
 
-* binding
-* java 8
-* ...
+image::read1000kBytes.jpg[]
 
+//-------------------------------------------------------------------------------------
+== Benchmark (cont.)
+image::read1000kChars.jpg[]
+
+//-------------------------------------------------------------------------------------
+== Benchmark (cont.)
+image::serializeSimpleBytes.jpg[]
+
+//-------------------------------------------------------------------------------------
+== Testcoverage
+
+* Approx. 74%  testcoverage yet
+* We want to get above 90%
+* https://coveralls.io/github/salyh/incubator-johnzon
+
+//-------------------------------------------------------------------------------------
+== JSR 374 (JSON-P 1.1)
+
+* RFC 7159 (update of RFC 4627)
+* Java SE 8
+* Json Pointer (RFC 6901)
+* Json Patch (RFC 6902)
+* Json Merge Patch (RFC 7396)
+* Mutable "Tree Model"
+* Currently EDR (Early draft release)
+
+//-------------------------------------------------------------------------------------
+== JSR 367 (JSON-B 1.0)
+
+* Java standard for JSON<->Java Binding
+* Java SE 8
+* Integrates with JSR-353/374
+* Currently EDR (Early draft release)
 
 //-------------------------------------------------------------------------------------
 == Get it
@@ -215,6 +322,7 @@ or download from http://www.eu.apache.org/dist/incubator/johnzon/
 == Where to go from here
 
 * http://incubator.apache.org/projects/johnzon.html
+* mailto:dev-subscribe@johnzon.incubator.apache.org[Subscribe to the dev mailing list]
 * https://github.com/salyh/jsr353-benchmark
 * https://github.com/apache/incubator-johnzon/tree/jsr374_367
 * https://www.jcp.org/en/jsr/detail?id=353
@@ -222,10 +330,18 @@ or download from http://www.eu.apache.org/dist/incubator/johnzon/
 * https://www.jcp.org/en/jsr/detail?id=367
 
 //-------------------------------------------------------------------------------------
+== Consider to join the project if you are
+
+* a (Java) developer looking to get involved within ASF
+* interested in implementing standards
+* doing JSON the whole day
+* looking for a great community to engage with
+
+//-------------------------------------------------------------------------------------
 == Github
 
 * https://github.com/apache/incubator-johnzon
-* We accept Pull requests
+* We accept Pull Requests
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
