@@ -253,6 +253,14 @@ mapper.writeObject(myObj, outputStream);
 MyObject myObj2 = mapper.readObject(inputStream, MyObject.class);
 ----
 
+(Yet some missing default datatypes for Java SE 8 like java.time.*)
+
+== The "Mapper" (cont.)
+
+* Works mostly hassle free
+* Will be aligned with JSON-B Spec (JSR-367)
+* Need some performance tuning
+
 == JAX-RS Provider
 
 [source, xml]
