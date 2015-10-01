@@ -20,12 +20,25 @@ include::_settings.adoc[]
 //The outlook will focus especially on JSR-367 (JSON Binding) and JSR-374 (Update of JSR-353) because both specs 
 //will be implemented into Johnzon and Hendrik is a member of both expert groups and can give some insights on that.
 //
+
+
+//-------------------------------------------------------------------------------------
+== About the Apache Incubator
+"The Incubator project is the entry path into The Apache Software Foundation (ASF) for projects and codebases 
+wishing to become part of the Foundation's efforts." (http://incubator.apache.org/)
+
+The Apache Incubator has two primary goals:
+
+* Ensure all donations are in accordance with the ASF legal standards
+* Develop new communities that adhere to our guiding principles
+
+
 //-------------------------------------------------------------------------------------
 == What is Johnzon?
 
 * Lightweight JSON library written in Java
 * Core < 90k, 200k for the whole library
-* No ext. dependencies
+* No external dependencies
 * Implementation of JSR-353
 * Apache 2 License
 
@@ -48,16 +61,6 @@ JEE, Java SE
 ** Websocket (JSR-356) integration (beta)
 ** JSON DSL for mutating documents comfortably (beta)
 
-
-//-------------------------------------------------------------------------------------
-== Roadmap
-
-* Implement JSR-367 (API for JSON Binding/JSON-B)
-* Implement JSR-374 (Update of JSR-353)
-* Performance enhancements
-* JEE certification (once TCK available)
-
-
 //-------------------------------------------------------------------------------------
 == Status of the project
 
@@ -70,14 +73,14 @@ JEE, Java SE
 * Plan is to graduate soon (start this year)
 
 //-------------------------------------------------------------------------------------
-== What is the Apache Incubator
-The Incubator project is the entry path into The Apache Software Foundation (ASF) for projects and codebases 
-wishing to become part of the Foundation's efforts. 
+== Roadmap
 
-The Apache Incubator has two primary goals:
+* Implement JSR-367 (API for JSON Binding/JSON-B)
+* Implement JSR-374 (Update of JSR-353)
+* Performance enhancements
+* Increase test coverage
+* JEE certification (once TCK available)
 
-* Ensure all donations are in accordance with the ASF legal standards
-* Develop new communities that adhere to our guiding principles
 
 //-------------------------------------------------------------------------------------
 == Current users of Johnzon
@@ -85,6 +88,11 @@ The Apache Incubator has two primary goals:
 * Apache TomEE 2
 * Apache Tamaya
 * Apache Decanter
+
+[data-background="images/cc/codecentric-green-background-16x9.png"]
+== JSR
+
+The spec part
 
 //-------------------------------------------------------------------------------------
 == What is a JSR
@@ -147,7 +155,7 @@ xx xx xx xx  UTF-8
 JsonReader reader = Json.createReader(new StringReader("[]"));
 JsonArray array = reader.readArray();
 System.out.println(array.isEmpty());
-System.out.println(array.get);
+System.out.println(array.get(0));
 jsonReader.close();
 ----
 //-------------------------------------------------------------------------------------
@@ -203,6 +211,14 @@ final JsonReader reader = Json.createReaderFactory(new HashMap<String, Object>()
 JsonParser generator = Json.createGeneratorFactory();
 JsonGenerator generator = Json.createGeneratorFactory();
 ----
+
+[data-background="images/cc/codecentric-green-background-16x9.png"]
+== Johnzon
+
+in particular
+
+
+
 //-------------------------------------------------------------------------------------
 == Johnzon *non* JSR-353 Features
 
@@ -216,7 +232,7 @@ JsonGenerator generator = Json.createGeneratorFactory();
 
 == The "Mapper"
 
-* JSON<->Java Binding
+* JSON<-->Java Binding
 * Used by JAX RS provider/Websocket module
 * Supports
 ** Custom de-/serializers
@@ -286,8 +302,6 @@ public class ClientEndpointImpl {
 }
 ----
 
-
-
 == Johnzon DSL
 
 * Upcoming with Johnzon 2
@@ -322,7 +336,6 @@ JsonObject modJo = (JsonObject) ms.toJsonStructure();
 //-------------------------------------------------------------------------------------
 == Benchmark
 * JMH based benchmark suite
-* Not only JSR-353
 * Bytes, Chars (UTF-8/UTF-16)
 * Measurements
 ** Parse Only
@@ -395,6 +408,20 @@ The new JSON JSR Specs
 * Java SE 8
 * Integrates with JSR-353/374
 * Currently EDR (Early draft review)
+
+== JSR-367 (JSON-B 1.0) (cont.)
+
+[source, java]
+----
+Jsonb jsonb = JsonbBuilder.create();
+Book book = jsonb.fromJson(new File("jsonfile.json"), Book.class);
+----
+
+
+[data-background="images/cc/codecentric-green-background-16x9.png"]
+== Getting started
+
+and involved
 
 //-------------------------------------------------------------------------------------
 == Get it
